@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "script": {
+      "type": "string"
+    },
+    "args": {
+      "oneOf": [{
+        "type": "string"
+      }, {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }]
+    },
+    "cwd": {
+      "type": "string"
+    },
+    "output": {
+      "type": "string"
+    },
+    "error": {
+      "type": "string"
+    },
+    "log_date_format": {
+      "type": "string"
+    },
+    "pid": {
+      "type": "string"
+    },
+    "min_uptime": {
+      "type": "number"
+    },
+    "max_restarts": {
+      "type": "number"
+    },
+    "max_memory_restart": {
+      "type": "number"
+    },
+    "kill_timeout": {
+      "type": "number"
+    },
+    "restart_delay": {
+      "type": "number"
+    },
+    "interpreter": {
+      "type": "string"
+    },
+    "exec_mode": {
+      "type": "string"
+    },
+    "instances": {
+      "type": "number"
+    },
+    "merge_logs": {
+      "type": "boolean"
+    },
+    "watch": {
+      "oneOf": [{
+        "type": "boolean"
+      }, {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }]
+    },
+    "force": {
+      "type": "boolean"
+    },
+    "env": {
+      "type": "object"
+    }
+  }
+}

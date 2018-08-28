@@ -1,18 +1,19 @@
 {
   "name": "iwe8",
-  "version": "0.0.8",
+  "version": "0.0.214",
   "peerDependencies": {
+    "@angular-devkit/architect": "*",
+    "@angular-devkit/core": "*",
     "@angular/common": "*",
     "@angular/core": "*",
-    "@angular-devkit/core": "*",
-    "@angular-devkit/architect": "*",
-    "iwe7-ts-compiler": "*",
-    "rxjs": "^6.0.0",
-    "list-dir-file": "*",
     "handlebars": "*",
-    "reflect-metadata": "*"
+    "reflect-metadata": "*",
+    "rxjs": "^6.0.0"
   },
   "main": "public_api.js",
   "typings": "public_api.d.ts",
-  "builders": "builder/builders.json"
+  "builders": "builder/builders.json",
+  "dependencies": {
+    "@angular/compiler-cli": "^6.1.4"
+  }
 }

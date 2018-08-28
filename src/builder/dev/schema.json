@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "properties": {
+    "ngTarget": {
+      "type": "string"
+    },
+    "nestjsTarget": {
+      "type": "string"
+    },
+    "ngServer": {
+      "type": "string"
+    },
+    "nestjsApp": {
+      "type": "string"
+    },
+    "watch": {
+      "type": "boolean",
+      "default": true
+    },
+    "watchOptions": {
+      "type": "object",
+      "properties": {
+        "aggregateTimeout": {
+          "type": "number"
+        },
+        "ignored": {
+          "type": "string"
+        },
+        "poll": {
+          "type": "number"
+        }
+      },
+      "default": {}
+    }
+  },
+  "required": [
+    "ngTarget",
+    "nestjsTarget",
+    "ngServer",
+    "nestjsApp"
+  ]
+}

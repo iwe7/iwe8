@@ -10,7 +10,6 @@ export class Iwe7Version extends Version {
     constructor(full: string) {
         super(full);
     }
-
     compare(version: Iwe7Version): 0 | 1 | -1 {
         return compareVersions(version.full, this.full);
     }
@@ -25,6 +24,7 @@ export function iwe7TsCompiler(tsconfig: string): Observable<string> {
         // 获取ng-package.prod.json
         const ngPackage: any = parseJson(readFileSync(resolve(tsconfigPath, normalize('./ng-package.prod.json'))).toString('utf-8'));
         const outDir = resolve(tsconfigPath, ngPackage.dest);
+        obser.next(`outDir ${outDir}`);
         const _lib = resolve(tsconfigPath, ngPackage.lib.entryFile);
         const sourceRoot = dirname(_lib);
         // package.json
@@ -37,24 +37,27 @@ export function iwe7TsCompiler(tsconfig: string): Observable<string> {
         const newVersion = `${version.major}.${version.minor}.${patch + 1}`;
         packageJson.version = newVersion;
         writeFileSync(packagePath, JSON.stringify(packageJson, null, 2));
-        const srcs = [
-            `${sourceRoot}/**/*.graphql`,
-            `${sourceRoot}/*.graphql`,
-            `${tsconfigPath}/package.json`,
-            `${sourceRoot}/**/*.{html,css,txt,xml,json,js,jpeg,jpg,png,svg,gif}`
-        ];
-        const _staticTask = gulp.series(
-            () => gulp.src(srcs).pipe(gulp.dest(outDir)),
+        const _staticTask = gulp.series(() =>
+            gulp.src([
+                `${tsconfigPath}/package.json`,
+                `${tsconfigPath}/*.graphql`,
+                `${sourceRoot}/*.graphql`,
+                `${sourceRoot}/**/template/**/*`,
+                `${sourceRoot}/**/asset/**/*`,
+                `${sourceRoot}/**/__file__/**/*`,
+                `${sourceRoot}/**/*.graphql`,
+                `${sourceRoot}/**/*.json`,
+                `${sourceRoot}/**/*.md`,
+                `${sourceRoot}/**/*.html`
+            ]).pipe(gulp.dest(outDir)),
             (done) => {
                 obser.next('静态文件复制完成');
                 done();
             }
-        );
+        )
         const _tscTask = gulp.series(
             () => project.src()
-                // .pipe(sourcemaps.init())
                 .pipe(project())
-                // .pipe(sourcemaps.write("."))
                 .pipe(gulp.dest(outDir)),
             (done) => {
                 obser.next('typescript编译完成');
@@ -62,15 +65,11 @@ export function iwe7TsCompiler(tsconfig: string): Observable<string> {
             }
         );
         const _zipTask = gulp.series(
-            () => {
-                gulp.src(outDir + '/**/*').pipe(
-                    zip(`${packageJson.name}/${packageJson.version}.zip`)
-                ).pipe(
-                    gulp.dest('.publish')
-                );
-            },
+            () => gulp.src(outDir + '/**/*')
+                .pipe(zip(`${packageJson.name}/${packageJson.version}.zip`))
+                .pipe(gulp.dest('publish')),
             (done) => {
-                obser.next('压缩完成:publish' + `${packageJson.name}/${packageJson.version}.zip`);
+                obser.next('压缩完成');
                 done();
             }
         );

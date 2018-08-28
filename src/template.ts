@@ -1,1 +1,1 @@
-export * from './template/index';
+export * from './template/public_api';

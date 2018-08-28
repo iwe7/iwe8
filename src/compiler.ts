@@ -1,1 +1,1 @@
-export * from './compiler/index';
+export * from './compiler/public_api';

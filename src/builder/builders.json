@@ -1,9 +1,44 @@
 {
   "builders": {
     "nestjs": {
-      "class": "./src/nestjs",
-      "schema": "./src/nestjs/schema.json",
+      "class": "./nestjs",
+      "schema": "./nestjs/schema.json",
       "description": "nestjs builder for angular cli."
+    },
+    "start": {
+      "class": "./start",
+      "schema": "./start/schema.json",
+      "description": "start nestjs builder for angular cli."
+    },
+    "dev": {
+      "class": "./dev",
+      "schema": "./dev/schema.json",
+      "description": "start dev builder for angular cli."
+    },
+    "dev-server": {
+      "class": "./dev-server",
+      "schema": "./dev-server/schema.json",
+      "description": "start dev server builder for angular cli."
+    },
+    "dll": {
+      "class": "./dll",
+      "schema": "./dll/schema.json",
+      "description": "start dll builder for angular cli."
+    },
+    "electron": {
+      "class": "./electron",
+      "schema": "./electron/schema.json",
+      "description": "start electron builder for angular cli."
+    },
+    "electron-dev-server": {
+      "class": "./electron-dev-server",
+      "schema": "./electron-dev-server/schema.json",
+      "description": "start electron-dev-server builder for angular cli."
+    },
+    "electron-build": {
+      "class": "./electron-build",
+      "schema": "./electron-build/schema.json",
+      "description": "start electron-build builder for angular cli."
     }
   }
 }

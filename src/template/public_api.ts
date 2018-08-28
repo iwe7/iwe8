@@ -1,9 +1,9 @@
 import { of } from 'rxjs';
-import { listDir } from 'list-dir-file';
+import { listDir } from '../list-dir/index';
 import { compile } from 'handlebars';
 import { extname, dirname } from 'path';
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, lstatSync } from 'fs';
+import { map, switchMap, tap, filter } from 'rxjs/operators';
 import { relative, normalize, join, logging, terminal } from '@angular-devkit/core';
 const logger = new logging.IndentLogger('create');
 
@@ -20,6 +20,7 @@ export function iwe7Template<T>(
         )
     });
     return listDir(sourcePath).pipe(
+        filter(res => lstatSync(res).isFile()),
         map(res => {
             const ext = extname(res);
             if (ext === '.imeepos') {

@@ -6,7 +6,7 @@ import { join, dirname, } from 'path';
 import { resolve } from '@angular-devkit/core/node';
 import { of, from, throwError } from 'rxjs';
 import { filter, switchMap, tap, take, map } from 'rxjs/operators';
-import { listDir } from 'list-dir-file';
+import { listDir } from '../list-dir/index';
 import { logging, terminal, relative, normalize, Path } from '@angular-devkit/core';
 export const TemplateMetadata = '__template_metadata__';
 
@@ -107,7 +107,6 @@ export function compilerTemplate(name: string, outputPath: string) {
                     }
                 }),
                 filter(res => {
-
                     const exit = existsSync(res);
                     if (!exit) {
                         logger.info(`file not exist ${res}`);
